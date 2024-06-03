@@ -4,11 +4,11 @@ import { LoginPage } from '../pages/login.page';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
+    const loginPage = new LoginPage(page);
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
 
     await page.goto('/');
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userId);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
