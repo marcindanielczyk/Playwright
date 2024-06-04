@@ -10,7 +10,7 @@ test.describe('Payment tests', () => {
   test.beforeEach(async ({ page }) => {
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
-    
+
     await page.goto('/');
     const loginPage = new LoginPage(page);
     await loginPage.login(userId, userPassword);
@@ -26,15 +26,14 @@ test.describe('Payment tests', () => {
     const transferReceiver = 'Jan Nowak';
     const transferAccount = '12 3456 7890 1234 5678 9012 34567';
     const transferAmount = '222';
-    const expectedMessage = 'Przelew wykonany! 222,00PLN dla Jan Nowak';
+    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla Jan Nowak`;
 
     // Act
-    await paymentPage.transferReceiverInput.fill(transferReceiver);
-    await paymentPage.transferToInput.fill(transferAccount);
-    await paymentPage.transferAmountInput.fill(transferAmount);
-
-    await paymentPage.transferButton.click();
-    await paymentPage.actionCloseButton.click();
+    await paymentPage.makeTransfer(
+      transferReceiver,
+      transferAccount,
+      transferAmount,
+    );
 
     // Assert
     await expect(paymentPage.messageText).toHaveText(expectedMessage);
