@@ -6,13 +6,12 @@ import { PulpitPage } from '../pages/pulpit.page';
 test.describe('User login to Demobank', () => {
   let loginPage: LoginPage;
 
-  
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     loginPage = new LoginPage(page);
   });
 
-  test('successful login with correct credentials', async ({ page }) => {
+  test('successful login with correct credentials @login @smoke', async ({ page }) => {
     // Arrange
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
@@ -26,7 +25,9 @@ test.describe('User login to Demobank', () => {
     await expect(pulpitPage.userNameText).toHaveText(expectedUsername);
   });
 
-  test('unsuccessful login with too short username', async ({ page }) => {
+  test('unsuccessful login with too short username @login', async ({
+    page,
+  }) => {
     // Arrange
     const incorrectUserId = 'tester';
     const expectedErrorMessage = 'identyfikator ma min. 8 znaków';
@@ -39,7 +40,9 @@ test.describe('User login to Demobank', () => {
     await expect(loginPage.loginError).toHaveText(expectedErrorMessage);
   });
 
-  test('unsuccessful login with too short password', async ({ page }) => {
+  test('unsuccessful login with too short password @login', async ({
+    page,
+  }) => {
     // Arrange
     const userId = loginData.userId;
     const incorrectPassword = '1234';
