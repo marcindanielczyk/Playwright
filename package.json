@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "npx prettier --write .",
     "test": "npx playwright test",
     "test:pulpit:headed": "npm run test tests/pulpit.spec.ts  -- --headed",
     "test:headed": "npx playwright test --headed",
+    "test:ui-mode": "npm run test -- --ui",
+    "show-report": "npx playwright show-report",
     "test:login": "npx playwright test --grep \"@login\""
   },
   "keywords": [],
