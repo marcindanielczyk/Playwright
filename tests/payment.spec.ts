@@ -21,21 +21,31 @@ test.describe('Payment tests', () => {
     paymentPage = new PaymentPage(page);
   });
 
-  test('simple payment @payment @integration', async ({ page }) => {
-    // Arrange
-    const transferReceiver = 'Jan Nowak';
-    const transferAccount = '12 3456 7890 1234 5678 9012 34567';
-    const transferAmount = '222';
-    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla Jan Nowak`;
+  test(
+    'simple payment',
+    {
+      tag: ['@payment', '@integration'],
+      annotation: {
+        type: 'Documentation',
+        description: 'https://jaktestowac.pl/',
+      },
+    },
+    async ({ page }) => {
+      // Arrange
+      const transferReceiver = 'Jan Nowak';
+      const transferAccount = '12 3456 7890 1234 5678 9012 34567';
+      const transferAmount = '222';
+      const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla Jan Nowak`;
 
-    // Act
-    await paymentPage.makeTransfer(
-      transferReceiver,
-      transferAccount,
-      transferAmount,
-    );
+      // Act
+      await paymentPage.makeTransfer(
+        transferReceiver,
+        transferAccount,
+        transferAmount,
+      );
 
-    // Assert
-    await expect(paymentPage.messageText).toHaveText(expectedMessage);
-  });
+      // Assert
+      await expect(paymentPage.messageText).toHaveText(expectedMessage);
+    },
+  );
 });
